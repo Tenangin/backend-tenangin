@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>API Documentation - Mental Wellness Backend</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 4px; }
+    code { font-family: monospace; }
+    section { margin-bottom: 40px; }
+  </style>
+</head>
+<body>
+  <h1>Mental Wellness Backend API Documentation</h1>
+  <p>This documentation describes the available API endpoints for the Mental Wellness Backend.</p>
+  <p><strong>Base URL:</strong> <code>http://localhost:3000/api</code></p>
+
+  <section>
+    <h2>Authentication</h2>
+    <h3>Register (Manual)</h3>
+    <p><strong>POST /auth/register</strong></p>
+    <p>Register a new user with email and password.</p>
+    <pre><code>{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}</code></pre>
+
+    <h3>Login (Manual)</h3>
+    <p><strong>POST /auth/login</strong></p>
+    <p>Login user and receive JWT token.</p>
+    <pre><code>{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Profile</h2>
+    <h3>Get Profile</h3>
+    <p><strong>GET /profile</strong></p>
+    <p>Get profile data of authenticated user.</p>
+
+    <h3>Create Profile</h3>
+    <p><strong>POST /profile/add</strong></p>
+    <p>Create profile for authenticated user.</p>
+    <pre><code>{
+  "full_name": "John Doe",
+  "place_of_birth": "City",
+  "date_of_birth": "1990-01-01",
+  "age": 30,
+  "gender": "Male",
+  "address": "123 Street",
+  "about_me": "Short bio"
+}</code></pre>
+
+    <h3>Update Profile</h3>
+    <p><strong>PUT /profile/edit</strong></p>
+    <p>Update profile data for authenticated user.</p>
+    <pre><code>{
+  "full_name": "John Doe",
+  "place_of_birth": "City",
+  "date_of_birth": "1990-01-01",
+  "age": 31,
+  "gender": "Male",
+  "address": "123 Street",
+  "about_me": "Updated bio"
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Assessment History</h2>
+    <h3>Get Assessments</h3>
+    <p><strong>GET /assesment</strong></p>
+    <p>Get all assessment history for authenticated user.</p>
+
+    <h3>Create Assessment</h3>
+    <p><strong>POST /assesment</strong></p>
+    <p>Create a new assessment record.</p>
+    <pre><code>{
+  "score": 85,
+  "condition": "Good",
+  "result_text": "Mental condition is good."
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Journal Entries</h2>
+    <h3>Get Journal Entries</h3>
+    <p><strong>GET /journal</strong></p>
+    <p>Get all journal entries for authenticated user.</p>
+
+    <h3>Create Journal Entry</h3>
+    <p><strong>POST /journal/add</strong></p>
+    <p>Create a new journal entry.</p>
+    <pre><code>{
+  "content": "Today I felt happy and productive.",
+  "sentiment": "positive"
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Google OAuth</h2>
+    <p>Login with Google OAuth is available via /auth/google routes.</p>
+  </section>
+
+  <footer>
+    <p>© 2024 Mental Wellness Backend API</p>
+  </footer>
+</body>
+</html>
