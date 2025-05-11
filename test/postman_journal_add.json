@@ -1,0 +1,42 @@
+{
+  "info": {
+    "_postman_id": "87654321-abcd-efgh-ijkl-0987654321ba",
+    "name": "Journal POST Add Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Add Journal Entry",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"content\": \"Today I felt happy and productive.\",\n  \"sentiment\": \"positive\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/journal/add",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "journal",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

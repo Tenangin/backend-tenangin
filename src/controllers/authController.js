@@ -15,11 +15,16 @@ exports.googleAuthSuccess = (req, res) => {
 // New login with Google using Supabase OAuth
 exports.loginWithGoogleSupabase = async (req, res) => {
   try {
-    const redirectTo = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/auth/google/callback';
+    const scope = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
+    
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo,
+        redirectTo: scope,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       },
     });
 
@@ -27,19 +32,20 @@ exports.loginWithGoogleSupabase = async (req, res) => {
       return res.status(400).json({ error: error.message });
     }
 
-    if (data.url) {
-      // Return the URL to redirect client to Google consent screen
-      return res.json({ url: data.url });
-    }
+    // Langsung redirect (kalau kamu ingin client langsung diarahkan ke Google)
+    return res.redirect(data.url);
 
-    res.status(500).json({ error: 'Failed to get redirect URL from Supabase' });
+    // Atau bisa juga dikirim sebagai JSON untuk SPA
+    // return res.json({ url: data.url });
+
   } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err.message });
+    return res.status(500).json({ error: 'Server error', details: err.message });
   }
 };
 
 exports.logout = (req, res) => {
-  req.logout(() => {
+  req.logout(async () => {
+    await supabase.auth.signOut()
     res.json({ message: 'Logged out successfully' });
   });
 };

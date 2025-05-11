@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const assessmentRoutes = require('./routes/assessmentRoutes');
 const journalRoutes = require('./routes/journalRoutes')
+const clinicsRoutes = require('./routes/clinicsRoutes')
 const serverless = require('serverless-http');
 
 const app = express();
@@ -43,16 +44,17 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/assesment', assessmentRoutes);
 app.use('/api/chatbot', ensureAuthenticated, require('./routes/chatbotRoutes'));
 app.use('/api/journal', journalRoutes);
+app.use('/api/clinics', clinicsRoutes);
 app.use('/api/recommendations', ensureAuthenticated, require('./routes/recommendationRoutes'));
 app.use('/api/reminders', ensureAuthenticated, require('./routes/reminderRoutes'));
 
 // Root route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Mental Wellness Backend API');
 });
 
 // API docs route
-app.get('/docs', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/api-docs.html');
 });
 

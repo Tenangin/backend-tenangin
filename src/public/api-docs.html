@@ -20,7 +20,7 @@
   <section>
     <h2>Authentication</h2>
     <h3>Register (Manual)</h3>
-    <p><strong>POST /auth/register</strong></p>
+    <p><strong>POST /api/auth/register</strong></p>
     <p>Register a new user with email and password.</p>
     <pre><code>{
   "email": "user@example.com",
@@ -28,7 +28,7 @@
 }</code></pre>
 
     <h3>Login (Manual)</h3>
-    <p><strong>POST /auth/login</strong></p>
+    <p><strong>POST /api/auth/login</strong></p>
     <p>Login user and receive JWT token.</p>
     <pre><code>{
   "email": "user@example.com",
@@ -39,11 +39,11 @@
   <section>
     <h2>Profile</h2>
     <h3>Get Profile</h3>
-    <p><strong>GET /profile</strong></p>
+    <p><strong>GET /api/profile</strong></p>
     <p>Get profile data of authenticated user.</p>
 
     <h3>Create Profile</h3>
-    <p><strong>POST /profile/add</strong></p>
+    <p><strong>POST /api/profile/add</strong></p>
     <p>Create profile for authenticated user.</p>
     <pre><code>{
   "full_name": "John Doe",
@@ -56,7 +56,7 @@
 }</code></pre>
 
     <h3>Update Profile</h3>
-    <p><strong>PUT /profile/edit</strong></p>
+    <p><strong>PUT /api/profile/edit</strong></p>
     <p>Update profile data for authenticated user.</p>
     <pre><code>{
   "full_name": "John Doe",
@@ -72,11 +72,11 @@
   <section>
     <h2>Assessment History</h2>
     <h3>Get Assessments</h3>
-    <p><strong>GET /assesment</strong></p>
+    <p><strong>GET /api/assesment</strong></p>
     <p>Get all assessment history for authenticated user.</p>
 
     <h3>Create Assessment</h3>
-    <p><strong>POST /assesment</strong></p>
+    <p><strong>POST /api/assesment</strong></p>
     <p>Create a new assessment record.</p>
     <pre><code>{
   "score": 85,
@@ -88,11 +88,11 @@
   <section>
     <h2>Journal Entries</h2>
     <h3>Get Journal Entries</h3>
-    <p><strong>GET /journal</strong></p>
+    <p><strong>GET /api/journal</strong></p>
     <p>Get all journal entries for authenticated user.</p>
 
     <h3>Create Journal Entry</h3>
-    <p><strong>POST /journal/add</strong></p>
+    <p><strong>POST /api/journal/add</strong></p>
     <p>Create a new journal entry.</p>
     <pre><code>{
   "content": "Today I felt happy and productive.",
@@ -101,8 +101,23 @@
   </section>
 
   <section>
+    <h2>Clinics</h2>
+    <h3>Get Clinics</h3>
+    <p><strong>GET /api/clinics</strong></p>
+    <p>Get all clinics data. This endpoint does not require authentication.</p>
+  </section>
+
+  <section>
     <h2>Google OAuth</h2>
-    <p>Login with Google OAuth is available via /auth/google routes.</p>
+    <p>Login with Google OAuth is available via /api/auth/google routes.</p>
+    <h3>Get Session Token</h3>
+    <p>After logging in with Google, you can retrieve the session token using Supabase's auth client as follows:</p>
+    <pre><code>const { data, error } = await supabase.auth.getSession();
+if (error) {
+  console.error('Error getting session:', error);
+} else {
+  console.log('Session data:', data);
+}</code></pre>
   </section>
 
   <footer>

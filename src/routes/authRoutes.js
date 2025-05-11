@@ -12,8 +12,8 @@ router.get('/google', authController.googleAuth);
 router.get('/google/callback', authController.googleAuthCallback, authController.googleAuthSuccess);
 
 // New Supabase OAuth login route
-router.post('/login/google', authController.loginWithGoogleSupabase);
+router.get('/login/google', authController.loginWithGoogleSupabase);
 
-router.get('/logout', authController.logout);
+router.post('/logout', authController.logout);
 
 module.exports = router;
