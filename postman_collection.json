@@ -1,0 +1,182 @@
+{
+  "info": {
+    "name": "Mental Wellness Backend API",
+    "_postman_id": "12345678-abcd-efgh-ijkl-1234567890ab",
+    "description": "Koleksi Postman untuk menguji endpoint utama backend Mental Wellness",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Google OAuth Redirect",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/auth/google",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["auth", "google"]
+        }
+      }
+    },
+    {
+      "name": "Get Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/profile",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["profile"]
+        }
+      }
+    },
+    {
+      "name": "Create Reminder",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Reminder Test\",\n  \"description\": \"Deskripsi test\",\n  \"remind_at\": \"2024-07-01T10:00:00Z\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/reminders",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["reminders"]
+        }
+      }
+    },
+    {
+      "name": "Get Reminders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/reminders",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["reminders"]
+        }
+      }
+    },
+    {
+      "name": "Create Recommendation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clinics_id\": \"clinic-id\",\n  \"notes\": \"Catatan rekomendasi\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/recommendations",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["recommendations"]
+        }
+      }
+    },
+    {
+      "name": "Get Recommendations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/recommendations",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["recommendations"]
+        }
+      }
+    },
+    {
+      "name": "Get Chatbot Sessions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/chatbot",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["chatbot"]
+        }
+      }
+    },
+    {
+      "name": "Get Journal Entries",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <TOKEN>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/journal",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["journal"]
+        }
+      }
+    }
+  ]
+}

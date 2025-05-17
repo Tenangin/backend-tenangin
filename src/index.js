@@ -49,15 +49,16 @@ app.use('/api/clinics', clinicsRoutes);
 app.use('/api/recommendations', ensureAuthenticated, require('./routes/recommendationRoutes'));
 app.use('/reminders', remindersRoutes);
 
-// Root route
+// API docs route
 app.get('/api', (req, res) => {
+  res.sendFile(__dirname + '/public/api-docs.html');
+});
+
+// Root route
+app.get('/', (req, res) => {
   res.send('Mental Wellness Backend API');
 });
 
-// API docs route
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/api-docs.html');
-});
 
 
 app.listen(port, host, () => {
