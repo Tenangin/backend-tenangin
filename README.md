@@ -101,4 +101,4 @@ Untuk deploy ke Netlify, Anda dapat menggunakan Netlify CLI:
 
 ---
 
-© 2024 Tenangin Backend
+© 2025 Tenangin Backend
