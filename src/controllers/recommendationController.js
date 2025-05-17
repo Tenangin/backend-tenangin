@@ -5,11 +5,34 @@ exports.createRecommendation = async (req, res) => {
   try {
     const { clinics_id, notes } = req.body;
     const userId = req.user.id;
+    const generateId = async () => {
+      const { data: profiles, error } = await supabase
+        .from('recomendations')
+        .select('id')
+        .order('id', { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error('Error saat mengambil id terakhir profile:', error);
+        return '001';
+      }
+
+      if (!profiles || profiles.length === 0) {
+        return '001';
+      }
+
+      const lastId = profiles[0].id;
+      const numberPart = parseInt(lastId) || 0;
+      const newNumber = numberPart + 1;
+      return newNumber.toString().padStart(3, '0');
+    };
+
+    const newId = await generateId();
 
     const { data, error } = await supabase
       .from('recommendations')
       .insert({
-        id: uuidv4(),
+        id: newId,
         users_id: userId,
         clinics_id,
         notes,

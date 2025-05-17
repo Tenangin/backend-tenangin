@@ -5,7 +5,7 @@ const { ensureAuthenticated } = require('../middlewares/auth');
 
 router.use(ensureAuthenticated);
 
-router.post('/', recommendationController.createRecommendation);
+router.post('/add', recommendationController.createRecommendation);
 router.get('/', recommendationController.getRecommendations);
 
 module.exports = router;

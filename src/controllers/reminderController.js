@@ -5,20 +5,43 @@ const googleCalendarService = require('../services/googleCalendarService');
 exports.createReminder = async (req, res) => {
   try {
     const { title, description, remind_at } = req.body;
-    const user = req.user;
+    const userId = req.user.id;
+    const generateId = async () => {
+      const { data: profiles, error } = await supabase
+        .from('reminders')
+        .select('id')
+        .order('id', { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error('Error saat mengambil id terakhir profile:', error);
+        return '001';
+      }
+
+      if (!profiles || profiles.length === 0) {
+        return '001';
+      }
+
+      const lastId = profiles[0].id;
+      const numberPart = parseInt(lastId) || 0;
+      const newNumber = numberPart + 1;
+      return newNumber.toString().padStart(3, '0');
+    };
+
+    const newId = await generateId();
 
     // Create reminder in DB without calendar_event_id first
     const { data, error } = await supabase
       .from('reminders')
       .insert({
-        id: uuidv4(),
-        users_id: user.id,
+        id: newId,
+        users_id: userId,
         title,
         description,
-        remind_at,
+        remind_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
       })
-      .single();
+      .select();
 
     if (error) return res.status(400).json({ error: error.message });
 
