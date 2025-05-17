@@ -10,6 +10,7 @@ const assessmentRoutes = require('./routes/assessmentRoutes');
 const journalRoutes = require('./routes/journalRoutes')
 const clinicsRoutes = require('./routes/clinicsRoutes');
 const remindersRoutes = require('./routes/reminderRoutes');
+const chatbotRoutes = require('./routes/chatbotRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -48,7 +49,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/assesment', assessmentRoutes);
-app.use('/api/chatbot', ensureAuthenticated, require('./routes/chatbotRoutes'));
+app.use('/api/chatbot',  chatbotRoutes);
 app.use('/api/journal', journalRoutes);
 app.use('/api/clinics', clinicsRoutes);
 app.use('/api/recommendations', ensureAuthenticated, require('./routes/recommendationRoutes'));

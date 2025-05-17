@@ -5,42 +5,43 @@ exports.createSession = async (req, res) => {
   try {
     const { summary, mood_detected } = req.body;
     const userId = req.user.id;
+
     const generateId = async () => {
-      const { data: sessions, error } = await supabase
+      const { data: chatbot_sessions, error } = await supabase
         .from('chatbot_sessions')
         .select('id')
         .order('id', { ascending: false })
         .limit(1);
 
       if (error) {
-        console.error('Error saat mengambil id terakhir profile:', error);
-        return 'S001';
+        console.error('Error saat mengambil id terakhir chatbot_sessions:', error);
+        return 'SC001';
       }
 
-      if (!sessions || sessions.length === 0) {
-        return 'S001';
+      if (!chatbot_sessions || chatbot_sessions.length === 0) {
+        return 'SC001';
       }
 
-      const lastId = sessions[0].id;
+      const lastId = chatbot_sessions[0].id;
       const numberPart = parseInt(lastId) || 0;
       const newNumber = numberPart + 1;
-      return "S" + newNumber.toString().padStart(3, '0');
+      return "SC" + newNumber.toString().padStart(3, '0');
     };
 
     const newId = await generateId();
 
-
     const { data, error } = await supabase
-      .from('chatbot_sessions')
-      .insert({
+    .from('chatbot_sessions')
+    .insert([
+      {
         id: newId,
         users_id: userId,
-        session_date: Date.now(),
+        session_date: new Date().toISOString(),
         summary,
         mood_detected,
-        created_at: Date.now(),
-      })
-      .single();
+      }
+    ])
+      .select();
 
     if (error) return res.status(400).json({ error: error.message });
 
@@ -90,11 +91,34 @@ exports.addMessage = async (req, res) => {
   try {
     const { sessionId } = req.params;
     const { sender, message } = req.body;
+    
+    const generateMessageId = async () => {
+      const {data: chatbot_messages, error} = await supabase
+      .from('chatbot_messages')
+      .select('id')
+      .order('id', { ascending: false })
+      .limit(1);
+
+      if (error) {
+        console.error('Error saat mengambil id terakhir chatbot_messages:', error);
+        return 'SM001';
+      }
+
+      if (!chatbot_messages || chatbot_messages.length === 0) {
+        return 'SM001';
+      }
+      const lastId = chatbot_sessions[0].id;
+      const numberPart = parseInt(lastId) || 0;
+      const newNumber = numberPart + 1;
+      return "SM" + newNumber.toString().padStart(3, '0');
+    };
+
+    const newMessageId = await generateMessageId();
 
     const { data, error } = await supabase
       .from('chatbot_messages')
       .insert({
-        id: uuidv4(),
+        id: newMessageId,
         sessions_id: sessionId,
         sender,
         message,

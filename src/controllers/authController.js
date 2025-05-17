@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 exports.googleAuth = passport.authenticate('google', { scope: ['profile', 'email'] });
 
 exports.googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login' });
-
 exports.googleAuthSuccess = (req, res) => {
   // Successful authentication, redirect or respond with user info
   res.json({ message: 'Google authentication successful', user: req.user });
