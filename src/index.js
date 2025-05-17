@@ -25,19 +25,25 @@ app.use(express.json());
 // Serve static files from public folder
 app.use(express.static('public'));
 
-// Session middleware
-app.use(
-  session({
-    secret: 'your_secret_key', // Replace with a secure secret in production
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+// Session middleware - disable in serverless environment to avoid hanging
+if (process.env.NODE_ENV !== 'production') {
+  app.use(
+    session({
+      secret: 'your_secret_key', // Replace with a secure secret in production
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
 
-// Initialize passport and session
-app.use(express.json());
-app.use(passport.initialize());
-app.use(passport.session());
+  // Initialize passport and sessio
+  app.use(express.json());
+  app.use(passport.initialize());
+  app.use(passport.session());
+} else {
+  // In production (serverless), only use JSON parser and passport initialize without session
+  app.use(express.json());
+  app.use(passport.initialize());
+}
 
 // Routes
 app.use('/auth', authRoutes);
