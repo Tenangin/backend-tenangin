@@ -10,7 +10,6 @@ const assessmentRoutes = require('./routes/assessmentRoutes');
 const journalRoutes = require('./routes/journalRoutes')
 const clinicsRoutes = require('./routes/clinicsRoutes');
 const remindersRoutes = require('./routes/reminderRoutes');
-const serverless = require('serverless-http');
 
 const app = express();
 const port = process.env.PORT || 3000;
