@@ -3,24 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>API Documentation - Mental Wellness Backend</title>
+  <title>API Documentation - Tenangin Backend</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
-    h1, h2, h3 { color: #2c3e50; }
-    pre { background: #f4f4f4; padding: 10px; border-radius: 4px; }
-    code { font-family: monospace; }
-    section { margin-bottom: 40px; }
+    body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px auto;
+            max-width: 900px;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+          }
+          h1, h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+          }
+          h1 {
+            font-size: 2.5em;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+          }
+          h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 6px;
+          }
+          h3 {
+            font-size: 1.3em;
+            margin-top: 25px;
+          }
+          p {
+            font-size: 1em;
+            margin: 10px 0 15px 0;
+          }
+          pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.95em;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+          }
+          code {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.95em;
+            color: #f8f8f2;
+          }
+          section {
+            margin-bottom: 50px;
+          }
+          strong {
+            color: #444;
+          }
+          footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #777;
+          }
+
   </style>
 </head>
 <body>
-  <h1>Mental Wellness Backend API Documentation</h1>
-  <p>This documentation describes the available API endpoints for the Mental Wellness Backend.</p>
+  <h1>Tenangin Backend API Documentation</h1>
+  <p>This documentation describes the available API endpoints for the Tenangin Backend.</p>
   <p><strong>Base URL:</strong> <code>https://tenangin-backend-skrulleps-skrulleps-projects.vercel.app/api</code></p>
 
   <section>
     <h2>Authentication</h2>
     <h3>Register (Manual)</h3>
-    <p><strong>POST /api/auth/register</strong></p>
+    <p><strong>POST /auth/register</strong></p>
     <p>Register a new user with email and password.</p>
     <pre><code>{
   "email": "user@example.com",
@@ -28,12 +86,16 @@
 }</code></pre>
 
     <h3>Login (Manual)</h3>
-    <p><strong>POST /api/auth/login</strong></p>
+    <p><strong>POST /auth/login</strong></p>
     <p>Login user and receive JWT token.</p>
     <pre><code>{
   "email": "user@example.com",
   "password": "yourpassword"
 }</code></pre>
+
+    <h3>Google OAuth</h3>
+    <p><strong>GET /auth/google</strong></p>
+    <p>Login using Google OAuth.</p>
   </section>
 
   <section>
@@ -72,11 +134,11 @@
   <section>
     <h2>Assessment History</h2>
     <h3>Get Assessments</h3>
-    <p><strong>GET /api/assesment</strong></p>
+    <p><strong>GET /api/assessment</strong></p>
     <p>Get all assessment history for authenticated user.</p>
 
     <h3>Create Assessment</h3>
-    <p><strong>POST /api/assesment</strong></p>
+    <p><strong>POST /api/assessment</strong></p>
     <p>Create a new assessment record.</p>
     <pre><code>{
   "score": 85,
@@ -108,20 +170,51 @@
   </section>
 
   <section>
-    <h2>Google OAuth</h2>
-    <p>Login with Google OAuth is available via /api/auth/google routes.</p>
-    <h3>Get Session Token</h3>
-    <p>After logging in with Google, you can retrieve the session token using Supabase's auth client as follows:</p>
-    <pre><code>const { data, error } = await supabase.auth.getSession();
-if (error) {
-  console.error('Error getting session:', error);
-} else {
-  console.log('Session data:', data);
+    <h2>Chatbot Sessions</h2>
+    <h3>Create Session</h3>
+    <p><strong>POST /api/chatbot/sessions</strong></p>
+    <p>Create a new chatbot session.</p>
+    <pre><code>{
+  "summary": "Session summary text",
+  "mood_detected": "happy"
+}</code></pre>
+
+    <h3>Get Sessions</h3>
+    <p><strong>GET /api/chatbot/sessions</strong></p>
+    <p>Get all chatbot sessions for authenticated user.</p>
+
+    <h3>Get Session Messages</h3>
+    <p><strong>GET /api/chatbot/sessions/:sessionId/messages</strong></p>
+    <p>Get all messages for a specific chatbot session.</p>
+
+    <h3>Add Message</h3>
+    <p><strong>POST /api/chatbot/sessions/:sessionId/messages</strong></p>
+    <p>Add a message to a specific chatbot session.</p>
+    <pre><code>{
+  "sender": "user",
+  "message": "Hello, chatbot!"
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Reminders</h2>
+    <h3>Get Reminders</h3>
+    <p><strong>GET /reminders</strong></p>
+    <p>Get all reminders for authenticated user.</p>
+
+    <h3>Create Reminder</h3>
+    <p><strong>POST /reminders/add</strong></p>
+    <p>Create a new reminder.</p>
+    <pre><code>{
+  "title": "Doctor Appointment",
+  "date": "2024-01-01",
+  "time": "10:00",
+  "notes": "Bring medical records"
 }</code></pre>
   </section>
 
   <footer>
-    <p>© 2024 Mental Wellness Backend API</p>
+    <p>© 2025 Tenangin Backend API</p>
   </footer>
 </body>
 </html>

@@ -62,7 +62,7 @@ app.get('/api', (req, res) => {
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('Mental Wellness Backend API');
+  res.send('Tenangin Backend API');
 });
 
 
