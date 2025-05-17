@@ -36,7 +36,7 @@ Base URL: `http://localhost:3000/api`
 - `GET /auth/google`  
   Login menggunakan Google OAuth.
 
-### Profil
+### Profiles
 
 - `GET /profile`  
   Mendapatkan data profil user yang sudah terautentikasi.
