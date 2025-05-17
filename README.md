@@ -25,7 +25,7 @@ Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil p
 
 Base URL: `http://localhost:3000/api`
 
-### Autentikasi
+### Autentikasia
 
 - `POST /auth/register`  
   Registrasi user baru dengan email dan password.
