@@ -1,6 +1,6 @@
-# Mental Wellness Backend
+# Tenangin Backend
 
-Backend API untuk aplikasi Mental Wellness yang menyediakan fitur autentikasi, profil pengguna, asesmen kesehatan mental, jurnal harian, dan integrasi Google OAuth.
+Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil pengguna, asesmen kesehatan mental, jurnal harian, dan integrasi Google OAuth.
 
 ## Teknologi
 
@@ -101,4 +101,4 @@ Untuk deploy ke Netlify, Anda dapat menggunakan Netlify CLI:
 
 ---
 
-© 2024 Mental Wellness Backend
+© 2024 Tenangin Backend

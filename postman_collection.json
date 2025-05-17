@@ -1,8 +1,8 @@
 {
   "info": {
-    "name": "Mental Wellness Backend API",
+    "name": "Tenangin Backend API",
     "_postman_id": "12345678-abcd-efgh-ijkl-1234567890ab",
-    "description": "Koleksi Postman untuk menguji endpoint utama backend Mental Wellness",
+    "description": "Koleksi Postman untuk menguji endpoint utama backend Tenangin",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
