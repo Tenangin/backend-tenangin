@@ -61,8 +61,10 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(port, host, () => {
-  console.log(`Server is running on port ${port} dan host ${host}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, host, () => {
+    console.log(`Server is running on port ${port} dan host ${host}`);
+  });
+}
 
 module.exports = app;
