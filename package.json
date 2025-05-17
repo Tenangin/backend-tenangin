@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "serve": "nodemon src/index.js",
-    "build": "netlify deploy --prod"
+    "serve": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "tenangin",
