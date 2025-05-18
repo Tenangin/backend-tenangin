@@ -53,7 +53,7 @@ app.use('/api/chatbot',  chatbotRoutes);
 app.use('/api/journal', journalRoutes);
 app.use('/api/clinics', clinicsRoutes);
 app.use('/api/recommendations', ensureAuthenticated, require('./routes/recommendationRoutes'));
-app.use('/reminders', remindersRoutes);
+app.use('/api/reminders', remindersRoutes);
 
 // API docs route
 app.get('/api', (req, res) => {

@@ -107,8 +107,8 @@ exports.addMessage = async (req, res) => {
       if (!chatbot_messages || chatbot_messages.length === 0) {
         return 'SM001';
       }
-      const lastId = chatbot_sessions[0].id;
-      const numberPart = parseInt(lastId) || 0;
+      const lastId = chatbot_messages[0].id;
+      const numberPart = parseInt(lastId.replace(/^SM/, '')) || 0;
       const newNumber = numberPart + 1;
       return "SM" + newNumber.toString().padStart(3, '0');
     };
@@ -124,7 +124,7 @@ exports.addMessage = async (req, res) => {
         message,
         timestamp: new Date().toISOString(),
       })
-      .single();
+      .select();
 
     if (error) return res.status(400).json({ error: error.message });
 
