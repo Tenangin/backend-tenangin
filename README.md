@@ -23,7 +23,7 @@ Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil p
 
 ## Struktur Endpoint API
 
-Base URL: `http://localhost:3000/api`
+Base URL: `https://tenangin-backend-skrulleps-skrulleps-projects.vercel.app/api`
 
 ### Autentikasia
 
