@@ -113,7 +113,10 @@ exports.register = async (req, res) => {
       return res.status(500).json({ error: 'Gagal mendapatkan data user setelah registrasi' });
     }
 
-    res.status(201).json({ message: 'Registrasi berhasil', user: data[0] });
+    res.status(201).json({ 
+      success: true,
+      message: 'Registrasi berhasil', 
+      user: data[0] });
   } catch (err) {
     console.error('Register error:', err);
     res.status(500).json({ error: 'Server error', details: err.message });
