@@ -162,6 +162,7 @@ exports.login = async (req, res) => {
     );
 
     res.json({
+      success: true,
       message: 'Login berhasil',
       access_token: token,
       user: { id: user.id, username: user.username, email: user.email },
