@@ -6,6 +6,6 @@ const { jwtAuth } = require('../middlewares/auth');
 // Add JWT authentication middleware to protect profile routes
 router.post('/add', jwtAuth, userController.createProfile);
 router.get('/:id', jwtAuth, userController.getProfile);
-router.put('/edit', jwtAuth, userController.updateProfile);
+router.put('/edit/:id', jwtAuth, userController.updateProfile);
 
 module.exports = router;

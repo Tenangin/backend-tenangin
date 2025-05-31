@@ -82,13 +82,13 @@ exports.createProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const profileId = req.user.id;
     const updates = req.body;
 
     const { data, error } = await supabase
       .from('profiles')
       .update(updates)
-      .eq('users_id', userId)
+      .eq('users_id', profileId)
       .select()
       .single();
 
