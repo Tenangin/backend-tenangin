@@ -2,11 +2,11 @@ const supabase = require('../config/supabase');
 
 exports.getProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming req.user is set after authentication
+    const profileId = req.params.id; // Use id from route parameter
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
-      .eq('users_id', userId)
+      .eq('users_id', profileId)
       .single();
 
     if (error) {
