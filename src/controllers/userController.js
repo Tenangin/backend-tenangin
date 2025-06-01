@@ -3,7 +3,7 @@ const supabase = require('../config/supabase');
 exports.getProfile = async (req, res) => {
   try {
     const profileId = req.params.id; // Use id from route parameter
-    const { data, error } = await supabase
+    const { data: profile, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('users_id', profileId)
@@ -13,7 +13,11 @@ exports.getProfile = async (req, res) => {
       return res.status(400).json({ error: error.message });
     }
 
-    res.json(data);
+    res.json({
+      success: true,
+      message: 'Profile berhasil didapatkan',
+      profile
+    });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
@@ -74,7 +78,11 @@ exports.createProfile = async (req, res) => {
       return res.status(400).json({ error: error.message });
     }
 
-    res.status(201).json({ message: 'Profile berhasil dibuat', profile: data[0] });
+    res.status(201).json({
+      success: true, 
+      message: 'Profile berhasil dibuat', 
+      profile: data[0] 
+    });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
@@ -96,7 +104,11 @@ exports.updateProfile = async (req, res) => {
       return res.status(400).json({ error: error.message });
     }
 
-    res.json({ message: 'Profile berhasil diperbarui', profile: data });
+    res.json({
+      success: true, 
+      message: 'Profile berhasil diperbarui', 
+      profile: data 
+    });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
