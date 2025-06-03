@@ -5,6 +5,42 @@ const jwt = require('jsonwebtoken');
 
 exports.googleAuth = passport.authenticate('google', { scope: ['profile', 'email'] });
 
+// router.get('/auth/callback', authController.googleCallbackHandler);
+exports.googleCallbackHandler = async (req, res) => {
+  const code = req.query.code;
+
+  if (!code) {
+    return res.status(400).json({ error: 'No code in callback URL' });
+  }
+
+  try {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      return res.status(400).json({ error: error.message });
+    }
+
+    const { session, user } = data;
+
+    // Kirim token dan user info ke frontend (via redirect atau JSON)
+    // Kalau redirect, bisa encode ke URL
+    const redirectUrl = `https://frontend-tenangin.vercel.app/auth/callback?token=${session.access_token}&id=${user.id}&username=${user.user_metadata.full_name || user.email}`;
+
+    return res.redirect(redirectUrl);
+
+    // Atau kalo mau JSON (misalnya untuk SPA):
+    // return res.json({
+    //   token: session.access_token,
+    //   id: user.id,
+    //   username: user.user_metadata.full_name || user.email
+    // });
+
+  } catch (err) {
+    return res.status(500).json({ error: 'Server error', detail: err.message });
+  }
+};
+
+
 exports.googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login' });
 exports.googleAuthSuccess = (req, res) => {
   // Successful authentication, redirect or respond with user info

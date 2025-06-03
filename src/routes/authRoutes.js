@@ -10,19 +10,13 @@ router.get('/default-token', authController.getDefaultToken);
 
 // Existing Google OAuth with passport
 router.get('/google', authController.googleAuth);
-
 router.get('/google/callback', authController.googleAuthCallback, authController.googleAuthSuccess);
 
 // New Supabase OAuth login route
 router.get('/login/google', authController.loginWithGoogleSupabase);
+router.get('/auth/callback', authController.googleCallbackHandler);
 
-// authRoutes.js
-router.get('/v1/callback', (req, res) => {
-  res.redirect('/dashboard'); // atau bisa tampilkan hasil login
-});
-
-
-
+// Logout
 router.post('/logout', authController.logout);
 
 module.exports = router;
