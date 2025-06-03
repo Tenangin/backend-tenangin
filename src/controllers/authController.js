@@ -14,7 +14,9 @@ exports.googleAuthSuccess = (req, res) => {
 // New login with Google using Supabase OAuth
 exports.loginWithGoogleSupabase = async (req, res) => {
   try {
-    const scope = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
+    const scope = process.env.NODE_ENV === 'production'
+  ? 'https://frontend-tenangin.vercel.app/auth/v1/callback'
+  : 'http://localhost:3000/auth/callback';
     
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',

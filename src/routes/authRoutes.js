@@ -16,6 +16,13 @@ router.get('/google/callback', authController.googleAuthCallback, authController
 // New Supabase OAuth login route
 router.get('/login/google', authController.loginWithGoogleSupabase);
 
+// authRoutes.js
+router.get('/v1/callback', (req, res) => {
+  res.redirect('/dashboard'); // atau bisa tampilkan hasil login
+});
+
+
+
 router.post('/logout', authController.logout);
 
 module.exports = router;
