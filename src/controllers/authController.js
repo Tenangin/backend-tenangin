@@ -72,10 +72,10 @@ exports.loginWithGoogleSupabase = async (req, res) => {
     }
 
     // Langsung redirect (kalau kamu ingin client langsung diarahkan ke Google)
-    // return res.redirect(data.url);
+    return res.redirect(data.url);
 
     // Atau bisa juga dikirim sebagai JSON untuk SPA
-    return res.json({ url: data.url });
+    // return res.json({ url: data.url });
 
   } catch (err) {
     return res.status(500).json({ error: 'Server error', details: err.message });
