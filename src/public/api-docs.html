@@ -180,7 +180,7 @@
 }</code></pre>
 
     <h3>Get Sessions</h3>
-    <p><strong>GET /api/chatbot/sessions</strong></p>
+    <p><strong>GET /api/chatbot/sessions/:id</strong></p>
     <p>Get all chatbot sessions for authenticated user.</p>
 
     <h3>Get Session Messages</h3>
@@ -193,6 +193,14 @@
     <pre><code>{
   "sender": "user",
   "message": "Hello, chatbot!"
+}</code></pre>
+
+    <h3>Update Session</h3>
+    <p><strong>PUT /api/chatbot/sessions/edit/:id</strong></p>
+    <p>Update chatbot sessions for authenticated user by users_id.</p>
+    <pre><code>{
+  "summary": "Updated session summary",
+  "mood_detected": "neutral"
 }</code></pre>
   </section>
 

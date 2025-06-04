@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 
 exports.createSession = async (req, res) => {
   try {
-    const { summary, mood_detected } = req.body;
+    const { users_id,summary, mood_detected } = req.body;
     const userId = req.user.id;
 
     const generateId = async () => {
@@ -23,11 +23,11 @@ exports.createSession = async (req, res) => {
       }
 
       const lastId = chatbot_sessions[0].id;
-      const numberPart = parseInt(lastId) || 0;
+      const numberPart = parseInt(lastId.replace(/^SC/, '')) || 0;
       const newNumber = numberPart + 1;
       return "SC" + newNumber.toString().padStart(3, '0');
     };
-
+    console.log('id sessions: ', generateId);
     const newId = await generateId();
 
     const { data, error } = await supabase
@@ -51,7 +51,30 @@ exports.createSession = async (req, res) => {
   }
 };
 
-exports.getSessions = async (req, res) => {
+exports.updateSessionByUserId = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const updateData = req.body;
+
+    const { data, error } = await supabase
+      .from('chatbot_sessions')
+      .update(updateData)
+      .eq('users_id', userId)
+      .select();
+
+    if (error) return res.status(400).json({ error: error.message });
+
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: 'No sessions found for the user to update' });
+    }
+
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+exports.getSessionsByUsersId = async (req, res) => {
   try {
     const userId = req.user.id;
 
@@ -69,7 +92,9 @@ exports.getSessions = async (req, res) => {
   }
 };
 
-exports.getSessionMessages = async (req, res) => {
+
+
+exports.getMessagesBySessionsId = async (req, res) => {
   try {
     const { sessionId } = req.params;
 

@@ -7,8 +7,9 @@ const { jwtAuth } =  require('../middlewares/auth');
 // router.use(ensureAuthenticated);
 
 router.post('/sessions', jwtAuth, chatbotController.createSession);
-router.get('/sessions', jwtAuth, chatbotController.getSessions);
-router.get('/sessions/:sessionId/messages', jwtAuth, chatbotController.getSessionMessages);
+router.get('/sessions/:id', jwtAuth, chatbotController.getSessionsByUsersId);
+router.put('/sessions/edit/:id', jwtAuth, chatbotController.updateSessionByUserId);
+router.get('/sessions/:sessionId/messages', jwtAuth, chatbotController.getMessagesBySessionsId);
 router.post('/sessions/:sessionId/messages', jwtAuth, chatbotController.addMessage);
 
 module.exports = router;
