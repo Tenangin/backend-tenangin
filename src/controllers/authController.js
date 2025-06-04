@@ -53,8 +53,8 @@ exports.googleAuthSuccess = (req, res) => {
 exports.loginWithGoogleSupabase = async (req, res) => {
   try {
     const redirectUrl = process.env.NODE_ENV === 'production'
-      ? 'https://tenangin-backend.vercel.app/auth/google/callback'
-      : 'https://tenangin-backend.vercel.app/auth/google/callback';
+      ? 'https://frontend-tenangin.vercel.app/google/callback'
+      : 'http://localhost:5173/google/callback';
       // 'http://localhost:5173/google/callback'
 // https://tenangin-backend.vercel.app/
     const { data, error } = await supabase.auth.signInWithOAuth({
