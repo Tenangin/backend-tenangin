@@ -14,7 +14,7 @@ router.get('/google/callback', authController.googleAuthCallback, authController
 
 // New Supabase OAuth login route
 router.get('/login/google', authController.loginWithGoogleSupabase);
-router.get('/auth/callback', authController.googleCallbackHandler);
+router.get('/google/callback', authController.googleCallbackHandler);
 
 // Logout
 router.post('/logout', authController.logout);
