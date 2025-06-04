@@ -54,7 +54,8 @@ exports.loginWithGoogleSupabase = async (req, res) => {
   try {
     const redirectUrl = process.env.NODE_ENV === 'production'
       ? 'https://tenangin-backend.vercel.app/auth/google/callback'
-      : 'http://localhost:5173/google/callback';
+      : 'https://tenangin-backend.vercel.app/auth/google/callback';
+      // 'http://localhost:5173/google/callback'
 // https://tenangin-backend.vercel.app/
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -75,7 +76,16 @@ exports.loginWithGoogleSupabase = async (req, res) => {
     return res.redirect(data.url);
 
     // Atau bisa juga dikirim sebagai JSON untuk SPA
-    // return res.json({ url: data.url });
+    // return res.json({
+    //   success: true,
+    //   message: 'Redirecting to Google for authentication',
+    //   url: data.url,
+    //   data: [{
+    //     email: data.user?.email || null,
+    //     id: data.user?.id || null,
+    //     username: data.user?.user_metadata?.full_name || data.user?.email || null
+    //   }] 
+    // });
 
   } catch (err) {
     return res.status(500).json({ error: 'Server error', details: err.message });
