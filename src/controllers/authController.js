@@ -30,6 +30,8 @@ exports.googleCallbackHandler = async (req, res) => {
 
     // Atau kalo mau JSON (misalnya untuk SPA):
     // return res.json({
+    //   success: true,
+    //   message: 'Google authentication successful',
     //   token: session.access_token,
     //   id: user.id,
     //   username: user.user_metadata.full_name || user.email
@@ -52,7 +54,7 @@ exports.loginWithGoogleSupabase = async (req, res) => {
   try {
     const scope = process.env.NODE_ENV === 'production'
   ? 'https://frontend-tenangin.vercel.app/auth/v1/callback'
-  : 'http://localhost:3000/auth/callback';
+  : 'http://localhost:5173/auth/callback';
     
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
