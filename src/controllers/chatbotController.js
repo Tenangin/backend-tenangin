@@ -159,3 +159,30 @@ exports.addMessage = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+exports.deleteSessionById = async (req, res) => {
+  try {
+    const { idSession } = req.params;
+
+    const { data, error } = await supabase
+      .from('chatbot_sessions')
+      .delete()
+      .eq('id', idSession)
+      .select();
+
+    if (error) return res.status(400).json({ error: error.message });
+
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: 'Session not found or already deleted' });
+    }
+
+    res.json({ 
+      success: true,
+      message: 'Session deleted successfully',
+      session: data[0]
+    });
+  } catch (err) {
+    console.error('Error in deleteSessionById:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
