@@ -65,6 +65,7 @@ exports.loginWithGoogleSupabase = async (req, res) => {
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
+          scope: 'openid profile email',
         },
       },
     });
