@@ -24,18 +24,19 @@ exports.googleCallbackHandler = async (req, res) => {
 
     // Kirim token dan user info ke frontend (via redirect atau JSON)
     // Kalau redirect, bisa encode ke URL
-    const redirectUrl = `https://frontend-tenangin.vercel.app/google/callback?access_token=${session.access_token}&id=${user.id}&username=${user.user_metadata.full_name || user.email}&email=${user.email}`;
+    // const redirectUrl = `https://frontend-tenangin.vercel.app/google/callback?access_token=${session.access_token}&id=${user.id}&username=${user.user_metadata.full_name || user.email}&email=${user.email}`;
 
-    return res.redirect(redirectUrl);
+    // return res.redirect(redirectUrl);
 
     // Atau kalo mau JSON (misalnya untuk SPA):
-    // return res.json({
-    //   success: true,
-    //   message: 'Google authentication successful',
-    //   token: session.access_token,
-    //   id: user.id,
-    //   username: user.user_metadata.full_name || user.email
-    // });
+    return res.json({
+      success: true,
+      message: 'Google authentication successful',
+      access_token: session.access_token,
+      id: user.id,
+      username: user.user_metadata.full_name || user.email,
+      email: user.email,
+    });
 
   } catch (err) {
     return res.status(500).json({ error: 'Server error', detail: err.message });
