@@ -24,7 +24,7 @@ exports.googleCallbackHandler = async (req, res) => {
 
     // Kirim token dan user info ke frontend (via redirect atau JSON)
     // Kalau redirect, bisa encode ke URL
-    const redirectUrl = `http://localhost:5173/google/callback?access_token=${session.access_token}&id=${user.id}&username=${user.user_metadata.full_name || user.email}&email=${user.email}`;
+    const redirectUrl = `https://frontend-tenangin.vercel.app/google/callback?access_token=${session.access_token}&id=${user.id}&username=${user.user_metadata.full_name || user.email}&email=${user.email}`;
 
     return res.redirect(redirectUrl);
 
@@ -54,8 +54,8 @@ exports.loginWithGoogleSupabase = async (req, res) => {
   try {
     const redirectUrl = process.env.NODE_ENV === 'production'
       ? 'https://tenangin-backend.vercel.app/auth/google/callback'
-      : 'https://tenangin-backend.vercel.app/google/callback';
-      // 'http://localhost:5173/google/callback'
+      : 'http://localhost:5173/google/callback';
+      // 'https://tenangin-backend.vercel.app/google/callback'
 // https://tenangin-backend.vercel.app/
 // https://frontend-tenangin.vercel.app/
     const { data, error } = await supabase.auth.signInWithOAuth({
