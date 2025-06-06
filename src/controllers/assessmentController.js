@@ -5,22 +5,22 @@ exports.createAssessment = async (req, res) => {
     const userId = req.user.id;
     const { score, condition, result_text } = req.body;
     const generateId = async () => {
-      const { data: profiles, error } = await supabase
-        .from('profiles')
+      const { data: assessments, error } = await supabase
+        .from('assesment_history')
         .select('id')
         .order('id', { ascending: false })
         .limit(1);
 
       if (error) {
-        console.error('Error saat mengambil id terakhir profile:', error);
+        console.error('Error saat mengambil id terakhir assessment:', error);
         return '001';
       }
 
-      if (!profiles || profiles.length === 0) {
+      if (!assessments || assessments.length === 0) {
         return '001';
       }
 
-      const lastId = profiles[0].id;
+      const lastId = assessments[0].id;
       const numberPart = parseInt(lastId) || 0;
       const newNumber = numberPart + 1;
       return newNumber.toString().padStart(3, '0');
