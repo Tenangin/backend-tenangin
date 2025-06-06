@@ -48,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 // Routes
 app.use('/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/assesment', assessmentRoutes);
+app.use('/api/assessment', assessmentRoutes);
 app.use('/api/chatbot',  chatbotRoutes);
 app.use('/api/journal', journalRoutes);
 app.use('/api/clinics', clinicsRoutes);
