@@ -69,3 +69,33 @@ exports.getRecommendations = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+exports.deleteRecommendation = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+
+    // Optional: Verify the recommendation belongs to the user before deleting
+    const { data: existing, error: fetchError } = await supabase
+      .from('recommendations')
+      .select('id')
+      .eq('id', id)
+      .eq('users_id', userId)
+      .single();
+
+    if (fetchError || !existing) {
+      return res.status(404).json({ error: 'Recommendation not found or unauthorized' });
+    }
+
+    const { error } = await supabase
+      .from('recommendations')
+      .delete()
+      .eq('id', id);
+
+    if (error) return res.status(400).json({ error: error.message });
+
+    res.json({ success: true, message: 'Recommendation deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};

@@ -5,5 +5,6 @@ const { jwtAuth } = require('../middlewares/auth');
 
 router.post('/add', jwtAuth, assessmentController.createAssessment);
 router.get('/', jwtAuth, assessmentController.getAssessments);
+router.delete('/:id', jwtAuth, assessmentController.deleteAssessment);
 
 module.exports = router;

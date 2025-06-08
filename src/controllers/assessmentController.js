@@ -74,3 +74,33 @@ exports.getAssessments = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+exports.deleteAssessment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+
+    // Optional: Verify the assessment belongs to the user before deleting
+    const { data: existing, error: fetchError } = await supabase
+      .from('assesment_history')
+      .select('id')
+      .eq('id', id)
+      .eq('users_id', userId)
+      .single();
+
+    if (fetchError || !existing) {
+      return res.status(404).json({ error: 'Assessment not found or unauthorized' });
+    }
+
+    const { error } = await supabase
+      .from('assesment_history')
+      .delete()
+      .eq('id', id);
+
+    if (error) return res.status(400).json({ error: error.message });
+
+    res.json({ success: true, message: 'Assessment deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};

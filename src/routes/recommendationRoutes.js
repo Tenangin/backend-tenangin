@@ -9,5 +9,6 @@ const { jwtAuth } = require('../middlewares/auth');
 
 router.post('/add', jwtAuth, recommendationController.createRecommendation);
 router.get('/', jwtAuth, recommendationController.getRecommendations);
+router.delete('/:id', jwtAuth, recommendationController.deleteRecommendation);
 
 module.exports = router;
