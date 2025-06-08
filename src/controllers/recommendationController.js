@@ -6,8 +6,8 @@ exports.createRecommendation = async (req, res) => {
     const { clinics_id, notes } = req.body;
     const userId = req.user.id;
     const generateId = async () => {
-      const { data: recomendations, error } = await supabase
-        .from('recomendations')
+      const { data: recommendations, error } = await supabase
+        .from('recommendations')
         .select('id')
         .order('id', { ascending: false })
         .limit(1);
@@ -17,11 +17,11 @@ exports.createRecommendation = async (req, res) => {
         return '001';
       }
 
-      if (!recomendations || recomendations.length === 0) {
+      if (!recommendations || recommendations.length === 0) {
         return '001';
       }
 
-      const lastId = recomendations[0].id;
+      const lastId = recommendations[0].id;
       const numberPart = parseInt(lastId) || 0;
       const newNumber = numberPart + 1;
       return newNumber.toString().padStart(3, '0');
