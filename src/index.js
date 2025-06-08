@@ -11,6 +11,7 @@ const journalRoutes = require('./routes/journalRoutes')
 const clinicsRoutes = require('./routes/clinicsRoutes');
 const remindersRoutes = require('./routes/reminderRoutes');
 const chatbotRoutes = require('./routes/chatbotRoutes');
+const recommendationsRoutes = require('./routes/recommendationRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -52,7 +53,7 @@ app.use('/api/assessment', assessmentRoutes);
 app.use('/api/chatbot',  chatbotRoutes);
 app.use('/api/journal', journalRoutes);
 app.use('/api/clinics', clinicsRoutes);
-app.use('/api/recommendations', ensureAuthenticated, require('./routes/recommendationRoutes'));
+app.use('/api/recommendations', recommendationsRoutes);
 app.use('/api/reminders', remindersRoutes);
 
 // API docs route

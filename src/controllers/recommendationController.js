@@ -42,7 +42,11 @@ exports.createRecommendation = async (req, res) => {
 
     if (error) return res.status(400).json({ error: error.message });
 
-    res.status(201).json(data);
+    res.status(201).json({
+      success: true,
+      message: 'Recommendation created successfully',
+      data: data
+    });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
