@@ -6,8 +6,8 @@ exports.createEntry = async (req, res) => {
     const { content, sentiment } = req.body;
     const userId = req.user.id;
     const generateId = async () => {
-      const { data: profiles, error } = await supabase
-        .from('profiles')
+      const { data: journal, error } = await supabase
+        .from('journal_entries')
         .select('id')
         .order('id', { ascending: false })
         .limit(1);
@@ -17,11 +17,11 @@ exports.createEntry = async (req, res) => {
         return '001';
       }
 
-      if (!profiles || profiles.length === 0) {
+      if (!journal || journal.length === 0) {
         return '001';
       }
 
-      const lastId = profiles[0].id;
+      const lastId = journal[0].id;
       const numberPart = parseInt(lastId) || 0;
       const newNumber = numberPart + 1;
       return newNumber.toString().padStart(3, '0');
