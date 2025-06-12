@@ -1,6 +1,6 @@
 # Tenangin Backend
 
-Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil pengguna, asesmen kesehatan mental, jurnal harian, dan integrasi Google OAuth.
+Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil pengguna, asesmen kesehatan mental, jurnal harian, pengingat, rekomendasi, klinik, dan integrasi chatbot serta Google OAuth.
 
 ## Teknologi
 
@@ -9,14 +9,30 @@ Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil p
 - Supabase (PostgreSQL)
 - JWT untuk autentikasi
 - Passport untuk Google OAuth
-- Netlify Functions (opsional untuk deploy serverless)
+- Bcrypt untuk hashing password
+- Google APIs untuk integrasi layanan Google
+- Serverless HTTP untuk deploy serverless
+- Jest, Mocha, Supertest untuk testing
+- Nodemon untuk development
+
+## Fitur
+
+- Autentikasi user dengan email/password dan Google OAuth (Passport dan Supabase)
+- Manajemen profil pengguna (buat, lihat, update profil)
+- Asesmen kesehatan mental (buat, lihat, hapus asesmen)
+- Jurnal harian (buat dan lihat entri jurnal)
+- Pengingat (buat dan lihat pengingat)
+- Rekomendasi (buat, lihat, hapus rekomendasi)
+- Klinik (lihat daftar klinik)
+- Chatbot (manajemen sesi dan pesan chatbot)
+- Keamanan dengan JWT dan middleware autentikasi
 
 ## Instalasi
 
-1. Clone repository ini
-2. Jalankan `npm install` untuk menginstal dependensi
-3. Buat file `.env` dan isi variabel lingkungan yang diperlukan (contoh: PORT, Supabase URL dan Key, JWT secret, dsb)
-4. Jalankan server dengan perintah:
+1. Clone repository ini  
+2. Jalankan `npm install` untuk menginstal dependensi  
+3. Buat file `.env` dan isi variabel lingkungan yang diperlukan (contoh: PORT, Supabase URL dan Key, JWT secret, dsb)  
+4. Jalankan server dengan perintah:  
    ```
    npm run serve
    ```
@@ -25,7 +41,7 @@ Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil p
 
 Base URL: `https://tenangin-backend-skrulleps-skrulleps-projects.vercel.app/api`
 
-### Autentikasia
+### Autentikasi
 
 - `POST /auth/register`  
   Registrasi user baru dengan email dan password.
@@ -34,71 +50,106 @@ Base URL: `https://tenangin-backend-skrulleps-skrulleps-projects.vercel.app/api`
   Login user dan menerima JWT token.
 
 - `GET /auth/google`  
-  Login menggunakan Google OAuth.
+  Login menggunakan Google OAuth (Passport).
 
-### Profiles
+- `GET /login/google`  
+  Login menggunakan Google OAuth (Supabase).
 
-- `GET /profile`  
-  Mendapatkan data profil user yang sudah terautentikasi.
+- `POST /auth/logout`  
+  Logout user.
+
+### Profil
 
 - `POST /profile/add`  
   Membuat profil user.
 
-- `PUT /profile/edit`  
-  Mengupdate data profil user.
+- `GET /profile/:id`  
+  Mendapatkan data profil user berdasarkan ID.
+
+- `PUT /profile/edit/:id`  
+  Mengupdate data profil user berdasarkan ID.
 
 ### Asesmen
+
+- `POST /assesment/add`  
+  Membuat data asesmen baru.
 
 - `GET /assesment`  
   Mendapatkan riwayat asesmen user.
 
-- `POST /assesment`  
-  Membuat data asesmen baru.
+- `DELETE /assesment/:id`  
+  Menghapus data asesmen berdasarkan ID.
 
 ### Jurnal
+
+- `POST /journal/add`  
+  Membuat entri jurnal baru.
 
 - `GET /journal`  
   Mendapatkan semua entri jurnal user.
 
-- `POST /journal/add`  
-  Membuat entri jurnal baru.
+### Pengingat
+
+- `POST /reminder/add`  
+  Membuat pengingat baru.
+
+- `GET /reminder`  
+  Mendapatkan daftar pengingat user.
+
+### Rekomendasi
+
+- `POST /recommendation/add`  
+  Membuat rekomendasi baru.
+
+- `GET /recommendation`  
+  Mendapatkan daftar rekomendasi user.
+
+- `DELETE /recommendation/:id`  
+  Menghapus rekomendasi berdasarkan ID.
+
+### Klinik
+
+- `GET /clinics`  
+  Mendapatkan daftar klinik.
+
+### Chatbot
+
+- `POST /chatbot/sessions`  
+  Membuat sesi chatbot baru.
+
+- `GET /chatbot/sessions/:id`  
+  Mendapatkan sesi chatbot berdasarkan user ID.
+
+- `PUT /chatbot/sessions/edit/:id`  
+  Mengupdate sesi chatbot berdasarkan user ID.
+
+- `DELETE /chatbot/sessions/:idSession`  
+  Menghapus sesi chatbot berdasarkan ID sesi.
+
+- `GET /chatbot/sessions/:sessionId/messages`  
+  Mendapatkan pesan chatbot berdasarkan ID sesi.
+
+- `POST /chatbot/sessions/:sessionId/messages`  
+  Menambahkan pesan ke sesi chatbot.
 
 ## Dokumentasi API
 
 Dokumentasi lengkap tersedia di: `http://localhost:3000/docs`
 
-## Deploy ke Netlify
-
-Untuk deploy ke Netlify, Anda dapat menggunakan Netlify CLI:
-
-1. Install Netlify CLI secara global:
-   ```
-   npm install -g netlify-cli
-   ```
-
-2. Tambahkan script deploy di `package.json`:
-   ```json
-   "scripts": {
-     "netlify-deploy": "netlify deploy --prod"
-   }
-   ```
-
-3. Jalankan deploy:
-   ```
-   npm run netlify-deploy
-   ```
-
 ## Testing
 
-- Gunakan Postman collection yang tersedia di folder `test/` untuk menguji endpoint.
-- Pastikan environment variabel sudah diatur dengan benar.
-- Pengujian meliputi happy path dan error handling.
+- Gunakan Postman collection yang tersedia di folder `test/` untuk menguji endpoint.  
+- Pastikan environment variabel sudah diatur dengan benar.  
+- Pengujian meliputi happy path dan error handling.  
+- Testing menggunakan Jest, Mocha, dan Supertest.
 
 ## Catatan
 
-- Pastikan Supabase Row Level Security (RLS) sudah dikonfigurasi dengan benar untuk akses data yang aman.
-- Gunakan HTTPS di lingkungan produksi untuk keamanan data.
+- Pastikan Supabase Row Level Security (RLS) sudah dikonfigurasi dengan benar untuk akses data yang aman.  
+- Gunakan HTTPS di lingkungan produksi untuk keamanan data.  
+- Semua endpoint yang membutuhkan autentikasi dilindungi dengan JWT dan middleware autentikasi.
 
 ---
 
 © 2025 Tenangin Backend
+   npm run serve
