@@ -27,6 +27,9 @@ Backend API untuk aplikasi Tenangin yang menyediakan fitur autentikasi, profil p
 - Chatbot (manajemen sesi dan pesan chatbot)
 - Keamanan dengan JWT dan middleware autentikasi
 
+## Database
+![Tenangin DB Structure](src/public/img/Tenangin-DB.png)
+
 ## Instalasi
 
 1. Clone repository ini  
